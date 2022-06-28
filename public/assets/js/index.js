@@ -3,7 +3,10 @@ let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
-//const notes = require('./index.html');
+const express = require("express");
+const app = express();
+//const { notes } = require("./notes.html");
+//const  *  = require("./index.html");
 
 if (window.location.pathname === "/notes") {
   noteTitle = document.querySelector(".note-title");
@@ -177,3 +180,7 @@ if (window.location.pathname === "/notes") {
 }
 
 getAndRenderNotes();
+
+app.listen(3001, () => {
+  console.log(`API server now on port 3001!`);
+});
