@@ -3,11 +3,6 @@ let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
-const express = require("express");
-const app = express();
-const PORT = process.env.PORT || 3001;
-//const { notes } = require("./notes.html");
-//const  *  = require("./index.html");
 
 if (window.location.pathname === "/notes") {
   noteTitle = document.querySelector(".note-title");
@@ -36,7 +31,6 @@ const getNotes = () =>
     headers: {
       "Content-Type": "application/json",
     },
-    //return notes,
   });
 
 const saveNote = (note) =>
@@ -181,7 +175,3 @@ if (window.location.pathname === "/notes") {
 }
 
 getAndRenderNotes();
-
-app.listen(PORT, () => {
-  console.log(`API server now on port ${PORT}!`);
-});
