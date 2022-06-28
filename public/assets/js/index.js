@@ -5,6 +5,7 @@ let newNoteBtn;
 let noteList;
 const express = require("express");
 const app = express();
+const PORT = process.env.PORT || 3001;
 //const { notes } = require("./notes.html");
 //const  *  = require("./index.html");
 
@@ -181,6 +182,6 @@ if (window.location.pathname === "/notes") {
 
 getAndRenderNotes();
 
-app.listen(3001, () => {
-  console.log(`API server now on port 3001!`);
+app.listen(PORT, () => {
+  console.log(`API server now on port ${PORT}!`);
 });
