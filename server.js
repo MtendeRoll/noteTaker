@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 
 const app = express();
-const noteData = require("./db/db.json");
+var noteData = require("./db/db.json");
 const path = require("path");
 
 app.use(express.urlencoded({ extended: true }));
@@ -13,6 +13,13 @@ const { json } = require("express");
 const { fstat } = require("fs");
 
 const PORT = process.env.PORT || 4003;
+
+// function to find notes by ID
+function findNotesID(id, noteData) {
+  const result = noteData.filter((note) => note.id === id)[0];
+  return result;
+}
+
 // Random ID function
 var randomID = function () {
   return Math.floor(Math.random() * 9999 * 7)
@@ -36,11 +43,16 @@ app.post("/api/notes", function (req, res) {
 
 //delete api route function??
 app.delete("/api/notes/:id", function (req, res) {
-  const arr = noteData.filter((note) => note.id != req.params.id);
-  console.log("-----------", arr);
-  fs.writeFileSync("./db/db.json", JSON.stringify(arr));
+  const result = findNotesID(req.params.id, noteData);
+  if (result) {
+    var oldNotesList = noteData;
+    let newNotesList = oldNotesList.filter((note) => note.id !== req.params.id);
+    console.log(newNotesList);
 
-  res.json(arr);
+    fs.writeFileSync("./db/db.json", JSON.stringify(newNotesList));
+    noteData = newNotesList;
+    res.json(newNotesList);
+  }
 });
 
 // HTML routes
