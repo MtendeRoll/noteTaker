@@ -3,17 +3,16 @@ const fs = require("fs");
 
 const app = express();
 const noteData = require("./db/db.json");
+const path = require("path");
 
-var PORT = process.env.PORT || 3001;
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
 
-// HTML routes
-app.get("/notes", function (req, res) {
-  res.sendFile(path.join(__dirname, "public/notes.html"));
-});
+const { json } = require("express");
+const { fstat } = require("fs");
 
-app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "public/index.html"));
-});
+const PORT = process.env.PORT || 4003;
 
 // API routes
 app.get("/api/notes", function (req, res) {
@@ -29,9 +28,22 @@ app.post("/api/notes", function (req, res) {
   res.json(true);
 });
 
-//delete api route??
+// HTML routes
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "public/index.html"));
+});
+
+app.get("/notes", function (req, res) {
+  res.sendFile(path.join(__dirname, "public/notes.html"));
+});
+
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "public/index.html"));
+});
+
+//delete api route function??
 
 // APP Listener
 app.listen(PORT, () => {
-  console.log(`API server now on port ${PORT}!`);
+  console.log(`API server now on port ${PORT}`);
 });
