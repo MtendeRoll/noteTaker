@@ -13,6 +13,12 @@ const { json } = require("express");
 const { fstat } = require("fs");
 
 const PORT = process.env.PORT || 4003;
+// Random ID function
+var randomID = function () {
+  return Math.floor(Math.random() * 9999 * 7)
+    .toString(10)
+    .substring(1);
+};
 
 // API routes
 app.get("/api/notes", function (req, res) {
@@ -22,10 +28,19 @@ app.get("/api/notes", function (req, res) {
 
 app.post("/api/notes", function (req, res) {
   let jsonData = req.body;
-  jsonData["id"] = noteData.length + 1;
+  jsonData["id"] = randomID();
   noteData.push(jsonData);
   fs.writeFileSync("./db/db.json", JSON.stringify(noteData));
   res.json(true);
+});
+
+//delete api route function??
+app.delete("/api/notes/:id", function (req, res) {
+  const arr = noteData.filter((note) => note.id != req.params.id);
+  console.log("-----------", arr);
+  fs.writeFileSync("./db/db.json", JSON.stringify(arr));
+
+  res.json(arr);
 });
 
 // HTML routes
@@ -40,8 +55,6 @@ app.get("/notes", function (req, res) {
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "public/index.html"));
 });
-
-//delete api route function??
 
 // APP Listener
 app.listen(PORT, () => {
