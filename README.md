@@ -11,6 +11,12 @@ This is an application that can be used to write and save notes. This applicatio
 
 ## Installation
 
+The JSON file will have the necessary dependencies. type this in your command line:
+
+```
+npm i
+```
+
 ## Application Criteria
 
 GIVEN a note-taking application:
@@ -30,9 +36,10 @@ GIVEN a note-taking application:
 
 ## Links
 
-- [Github Repository]()
-- [Deployed Application]()
+- [Github Repository](https://github.com/MtendeRoll/noteTaker)
+- [Deployed Application using Website](https://mtenderoll.github.io/noteTaker/)
+- [Deployed Application using local host](http://localhost:4003/index)
 
 ## Images
 
-- ![Deployed Application Images]()
+![Deployed Application Images](./public/assets/images/noteTaker-demo.gif)
